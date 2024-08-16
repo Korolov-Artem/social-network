@@ -1,0 +1,6 @@
+.Dialogs__chats {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    background-color: rgb(210, 200, 195);
+}

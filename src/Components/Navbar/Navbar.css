@@ -1,0 +1,24 @@
+.Navbar {
+    grid-area: Navbar;
+    background-color: #724a56;
+    color: #f8dee7;
+  }
+
+.Navbar__directions {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: #f8dee7;
+    margin: 5%;
+}
+
+.Navbar__directions:hover {
+    color: white;
+    transition: 0.3s;
+}
+
+.Navbar__directions.active {
+    text-decoration: underline;
+    font-size: 120%;
+    transition: 0.3s;
+}

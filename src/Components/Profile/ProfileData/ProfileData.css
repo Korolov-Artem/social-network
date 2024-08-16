@@ -1,0 +1,44 @@
+.Profile__ava img {
+    margin: 2%;
+    margin-left: 2.1%;
+    border: 2px solid #0a1417;
+    object-fit: cover;
+    object-position: 0, -20%;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+  }
+  
+  .Profile__description {
+    margin-left: 17.5%;
+    margin-top: -1%;
+    max-width: 80%;
+    text-align: justify;
+  }
+
+.Profile__wallpaper {
+    display: flex;
+    justify-content: center;
+}
+
+.Profile__wallpaper img {
+    margin-top: 2%;
+    width: 1050px;
+    height: 350px;
+    object-fit: fill;
+    border-radius: 10px;
+}
+
+.Profile__name {
+    margin-left: 17.5%;
+    margin-top: -18.5%;
+}
+
+.Profile__interactButtons {
+    margin-left: 86%;
+    margin-top: -0.5%;
+}
+
+.Profile__interactButtons button{
+    height: 40px;
+}

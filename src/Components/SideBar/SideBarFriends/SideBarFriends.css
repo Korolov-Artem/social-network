@@ -1,0 +1,13 @@
+.SideBarFriends {
+    background-color: rgb(210, 200, 195);
+    width: 80%;
+    margin-left: 10%;
+    border-radius: 0 0 10px 10px;
+    color: rgb(44, 18, 2);
+    box-shadow: 5px 10px 20px #52353E;
+    transition: 0.3s;
+}
+
+.SideBarFriends:hover {
+    box-shadow: 0 8px 16px 10px #52353E;
+}

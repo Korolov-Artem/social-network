@@ -1,0 +1,10 @@
+.Dialogs__messages {
+    display: flex;
+    flex-direction: column;
+    margin-top: -40%;
+    margin-left: 20%;
+    background-color: rgb(210, 200, 195);
+    height: 500px;
+    border-left: 2px inset black;
+    padding-left: 5%;
+}

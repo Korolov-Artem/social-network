@@ -1,0 +1,17 @@
+.SideBar {
+    grid-area: SideBar;
+    background-color: #724a56;
+    color: #f8dee7;
+}
+
+.SideBar__section_friends_name {
+    font-size: 150%;
+    margin-left: 10%;
+    background-color: rgb(210, 200, 195);
+    color: rgb(44, 18, 2);
+    width: 80%;
+    border-radius: 10px 10px 0 0;
+    height: 50px;
+    text-align: center;
+    box-shadow: 8px 16px 10px #52353E;
+}
