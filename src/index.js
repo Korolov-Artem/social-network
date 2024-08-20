@@ -6,10 +6,10 @@ import App from './App';
 import store from "./Redux/state";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-let render = (props) => {
+let render = (state) => {
     root.render(
         <React.StrictMode>
-            <App store={store}/>
+            <App state={state} dispatch={store.dispatch.bind(store)}/>
         </React.StrictMode>
     );
 }

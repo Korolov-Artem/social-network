@@ -6,22 +6,20 @@ import Profile from "./Components/Profile/Profile";
 import Dialogs from "./Components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SideBar from "./Components/SideBar/SideBar";
-
 const App = (props) => {
     return (
         <BrowserRouter>
             <div className="Container">
                 <Header/>
                 <Navbar/>
-                <SideBar state={props.store.getState().SideBar}/>
+                <SideBar state={props.state.SideBar}/>
                 <Routes>
                     <Route path="/profile" element={<Profile
-                        addPost={props.store.addPost.bind(props.store)}
-                        state={props.store.getState().ProfilePage}
-                        updateNewPostText={props.store.updateNewPostText.bind(props.store)}
+                        dispatch={props.dispatch}
+                        state={props.state.ProfilePage}
                         />}/>
                     <Route path="/dialogs/*" 
-                    element={<Dialogs state={props.store.getState().DialogsPage}/>}/>
+                    element={<Dialogs state={props.state.DialogsPage}/>}/>
                 </Routes>
             </div>
         </BrowserRouter>
