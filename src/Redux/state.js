@@ -1,3 +1,8 @@
+const ADD_POST = "ADD-POST"
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
+const ADD_MESSAGE = "ADD-MESSAGE"
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
+
 let store = {
 
     _state: {
@@ -23,6 +28,8 @@ let store = {
                     message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo tempor incididunt."
                 },
             ],
+            newDialogsText: "",
+            status: "",
         },
         SideBar: {
             SideBarFriends: [
@@ -54,6 +61,10 @@ let store = {
             ]
         }
     },
+
+    subscribe(observer) {
+        this._callSubscriber = observer
+    },
     
     _callSubscriber () {
 
@@ -76,13 +87,27 @@ let store = {
         } else if(action.type === "UPDATE-NEW-POST-TEXT") {
             this._state.ProfilePage.newPostText = action.newText
             this._callSubscriber(this._state)
+        } else if(action.type === "ADD-MESSAGE") {
+            let newDialogsMessage = {
+                id: 5,
+                message: this._state.DialogsPage.newDialogsText,
+                status: this._state.DialogsPage.status
+            }
+            this._state.DialogsPage.DialogMessagesState.push(newDialogsMessage)
+            this._state.DialogsPage.newDialogsText = ""
+            this._callSubscriber(this._state)
+        } else if(action.type === "UPDATE-NEW-MESSAGE-TEXT") {
+            this._state.DialogsPage.newDialogsText = action.newMessage
+            this._callSubscriber(this._state)
         }
-    },
-
-    subscribe(observer) {
-        this._callSubscriber = observer
-    },
-
+    }
 }
+export const addPostActionCreator = () => ({type: ADD_POST})
+export const updateNewPostTextActionCreator = (newText) => 
+    ({type: UPDATE_NEW_POST_TEXT, newText: newText})
+export const addMessageActionCreator = () => ({type: ADD_MESSAGE})
+export const updateNewMessageTextActionCreator = (newMessage) => 
+    ({type: UPDATE_NEW_MESSAGE_TEXT, newMessage: newMessage})
+
 export default store
 window.store = store

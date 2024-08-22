@@ -1,19 +1,31 @@
 import React from "react";
+import { addMessageActionCreator, updateNewMessageTextActionCreator } from "../../../../Redux/state";
 
 
 const AddMessage = (props) => {
     
-    let DialogMessageElement = React.createRef()
+    let newDialogsMessageElement = React.createRef()
     
     let addMessage = () => {
-        let text = DialogMessageElement.current.value
-        alert(text)
+        props.dispatch(addMessageActionCreator())
+    }
+
+    let updateNewMessageText = () => {
+        let newMessage = newDialogsMessageElement.current.value
+        props.dispatch(updateNewMessageTextActionCreator(newMessage))
     }
     
     return (
         <div className="Dialogs__AddMessage">
-            <textarea ref={DialogMessageElement} className="Dialogs__AddMessage_textarea" contentEditable={true}/>
-            <button onClick={addMessage} className="Dialogs__AddMessage_button">Send</button>
+            <textarea ref={newDialogsMessageElement} 
+                className="Dialogs__AddMessage_textarea" 
+                onChange={updateNewMessageText}
+                value={props.newDialogsText}
+            />
+            <button
+             onClick={addMessage}
+             className="Dialogs__AddMessage_button"
+             >Send</button>
         </div>
     )
 }
