@@ -1,9 +1,9 @@
 .Dialogs__messages_ownerMessage {
     padding-left: 50%;
-    color: #454955;
+    color: #000000;
 }
 
 .Dialogs__messages_contactMessage {
-    color: black;
+    color: rgb(138, 44, 44);
     width: 40%;
 }

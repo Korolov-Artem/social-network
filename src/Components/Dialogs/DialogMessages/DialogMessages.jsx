@@ -3,8 +3,11 @@ import './DialogMessages.css'
 import Message from "./Message/Message";
 
 const DialogMessages = (props) => {
+    
+    let ownerId = 1
+
     const Belonging = (props) => {
-        if (props === 1) {
+        if (props === ownerId) {
             return "ownerMessage"
         } else {
             return "contactMessage"
