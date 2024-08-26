@@ -1,7 +1,18 @@
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
-const profileReducer = (state, action) => {
+let initialState = {
+  PostsState: [
+    { id: 1, message: "Hello World!", likesCount: 11 },
+    { id: 2, message: "Hi Pal.", likesCount: 146 },
+  ],
+  newPostText: "",
+};
+
+const profileReducer = (state = initialState, action) => {
+
+  let newState = structuredClone(state)
+
   switch (action.type) {
     case ADD_POST:
       let newPost = {
@@ -9,12 +20,12 @@ const profileReducer = (state, action) => {
         message: state.newPostText,
         likesCount: 0,
       };
-      state.PostsState.push(newPost);
-      state.newPostText = "";
-      return state;
+        newState.PostsState.push(newPost)
+        newState.newPostText = ""
+        return newState
     case UPDATE_NEW_POST_TEXT:
-      state.newPostText = action.newText;
-      return state;
+      newState.newPostText = action.newText
+      return newState
     default:
       return state;
   }

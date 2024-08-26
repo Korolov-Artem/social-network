@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import store from "./Redux/store";
+import store from './Redux/reduxStore';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 let render = (state) => {
@@ -15,7 +15,10 @@ let render = (state) => {
 }
 
 render(store.getState())
-store.subscribe(render)
+store.subscribe(() => {
+    let state = store.getState()
+    render(state)
+})
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

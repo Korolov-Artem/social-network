@@ -1,7 +1,28 @@
 const ADD_MESSAGE = "ADD-MESSAGE";
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 
-const dialogsReducer = (state, action) => {
+let initialState = {
+  DialogChatsState: [
+    { id: 1, name: "Prusha" },
+    { id: 2, name: "Joshua" },
+    { id: 3, name: "Freylin" },
+    { id: 4, name: "Kuba1965" },
+  ],
+  DialogMessagesState: [
+    { id: 1, message: "Excepteur sint occaecat cupidatat!" },
+    {
+      id: 2,
+      message:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo tempor incididunt.",
+    },
+  ],
+  newDialogsText: "",
+  status: "",
+};
+
+const dialogsReducer = (state = initialState, action) => {
+  let newState = structuredClone(state);
+
   switch (action.type) {
     case ADD_MESSAGE:
       let newDialogsMessage = {
@@ -9,12 +30,12 @@ const dialogsReducer = (state, action) => {
         message: state.newDialogsText,
         status: state.status,
       };
-      state.DialogMessagesState.push(newDialogsMessage);
-      state.newDialogsText = "";
-      return state;
+      newState.DialogMessagesState.push(newDialogsMessage);
+      newState.newDialogsText = "";
+      return newState;
     case UPDATE_NEW_MESSAGE_TEXT:
-      state.newDialogsText = action.newMessage;
-      return state;
+      newState.newDialogsText = action.newMessage;
+      return newState;
     default:
       return state;
   }
