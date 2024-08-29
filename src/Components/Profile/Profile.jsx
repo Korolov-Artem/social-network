@@ -1,17 +1,20 @@
 import React from "react";
-import './Profile.css'
+import "./Profile.css";
 import ProfileData from "./ProfileData/ProfileData";
-import NewPost from "../NewPost/NewPost";
 import MyPosts from "../MyPosts/MyPosts";
+import NewPostContainer from "../NewPost/NewPostContainer";
 
 const Profile = (props) => {
-    return (
-        <div className="Profile">
-            <ProfileData/>
-            <NewPost dispatch={props.dispatch} newPostText={props.state.newPostText}/>
-            <MyPosts state={props.state}/>
-        </div>
-    )
-}
+  return (
+    <div className="Profile">
+      <ProfileData />
+      <NewPostContainer
+        dispatch={props.dispatch}
+        newPostText={props.state.newPostText}
+      />
+      <MyPosts state={props.state} />
+    </div>
+  );
+};
 
-export default Profile
+export default Profile;

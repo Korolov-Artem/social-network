@@ -1,17 +1,20 @@
 import React from "react";
-import "./Dialogs.css"
+import "./Dialogs.css";
 import Chats from "./Chats/Chats";
 import DialogMessages from "./DialogMessages/DialogMessages";
-import AddMessage from "./DialogMessages/AddMessage/AddMessage";
+import AddMessageContainer from "./DialogMessages/AddMessage/AddMessageContainer";
 
 const Dialogs = (props) => {
-    return (
-        <div className="Dialogs__container">
-                <Chats chats={props.state.DialogChatsState}/>
-                <DialogMessages dialogMessages={props.state.DialogMessagesState}/>
-                <AddMessage newDialogsText={props.state.newDialogsText} dispatch={props.dispatch}/>
-        </div>
-    )
-}
+  return (
+    <div className="Dialogs__container">
+      <Chats chats={props.state.DialogChatsState} />
+      <DialogMessages dialogMessages={props.state.DialogMessagesState} />
+      <AddMessageContainer
+        newDialogsText={props.state.newDialogsText}
+        dispatch={props.dispatch}
+      />
+    </div>
+  );
+};
 
-export default Dialogs
+export default Dialogs;
