@@ -2,36 +2,20 @@ import React from "react";
 import "./App.css";
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
-import Profile from "./Components/Profile/Profile";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SideBar from "./Components/SideBar/SideBar";
-import Dialogs from "./Components/Dialogs/Dialogs";
+import ProfileContainer from "./Components/Profile/ProfileContainer";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import SideBarContainer from "./Components/SideBar/SideBarContainer";
 const App = (props) => {
   return (
     <BrowserRouter>
       <div className="Container">
         <Header />
         <Navbar />
-        <SideBar state={props.state.SideBar} />
+        <SideBarContainer />
         <Routes>
-          <Route
-            path="/profile"
-            element={
-              <Profile
-                dispatch={props.dispatch}
-                state={props.state.ProfilePage}
-              />
-            }
-          />
-          <Route
-            path="/dialogs/*"
-            element={
-              <Dialogs
-                dispatch={props.dispatch}
-                state={props.state.DialogsPage}
-              />
-            }
-          />
+          <Route path="/profile" element={<ProfileContainer />} />
+          <Route path="/dialogs/*" element={<DialogsContainer />} />
         </Routes>
       </div>
     </BrowserRouter>
