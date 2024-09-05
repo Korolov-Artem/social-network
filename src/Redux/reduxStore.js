@@ -13,3 +13,4 @@ let store = configureStore({
   
 
 export default store
+window.store = store 

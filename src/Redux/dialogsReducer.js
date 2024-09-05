@@ -21,21 +21,26 @@ let initialState = {
 };
 
 const dialogsReducer = (state = initialState, action) => {
-  let newState = structuredClone(state);
+  // let newState = structuredClone(state);
 
   switch (action.type) {
-    case ADD_MESSAGE:
+    case ADD_MESSAGE: {
       let newDialogsMessage = {
         id: 1,
         message: state.newDialogsText,
         status: state.status,
       };
-      newState.DialogMessagesState.push(newDialogsMessage);
-      newState.newDialogsText = "";
-      return newState;
-    case UPDATE_NEW_MESSAGE_TEXT:
-      newState.newDialogsText = action.newMessage;
-      return newState;
+      let stateCopy = { ...state };
+      stateCopy.DialogMessagesState = [...stateCopy.DialogMessagesState];
+      stateCopy.DialogMessagesState.push(newDialogsMessage);
+      stateCopy.newDialogsText = "";
+      return stateCopy;
+    }
+    case UPDATE_NEW_MESSAGE_TEXT: {
+      let stateCopy = { ...state };
+      stateCopy.newDialogsText = action.newMessage;
+      return stateCopy;
+    }
     default:
       return state;
   }
