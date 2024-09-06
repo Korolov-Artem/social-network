@@ -5,7 +5,7 @@ import Friend from "./Friend/Friend";
 const SideBarFriends = (props) => {
     
     let Friends = props.SideBarFriends
-        .map(data => <Friend name={data.name} ava={data.ava} status={data.status}/>)
+        .map(data => <Friend name={data.name} key={data.id}  ava={data.ava} status={data.status}/>)
     
     return (
         <div className="SideBarFriends">
