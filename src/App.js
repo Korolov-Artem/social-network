@@ -6,7 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import SideBarContainer from "./Components/SideBar/SideBarContainer";
-import Users from "./Components/Users/Users";
+import UsersContainer from "./Components/Users/UsersContainer";
+
 const App = (props) => {
   return (
     <BrowserRouter>
@@ -17,7 +18,7 @@ const App = (props) => {
         <Routes>
           <Route path="/profile" element={<ProfileContainer />} />
           <Route path="/dialogs/*" element={<DialogsContainer />} />
-          <Route path="/users/*" element={<Users />} />
+          <Route path="/users/*" element={<UsersContainer />} />
         </Routes>
       </div>
     </BrowserRouter>

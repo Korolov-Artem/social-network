@@ -1,12 +1,22 @@
 import React from "react";
-import "./Users.css"
+import "./Users.css";
+import User from "./User/User";
 
 const Users = (props) => {
-    return (
-        <div className="Users">
-            Users
-        </div>
-    )
-}
+  let UsersElements = props.state.map((user) => (
+    <User
+      key={user.id}
+      follow={props.follow}
+      unfollow={props.unfollow}
+      state={user}
+    />
+  ));
+
+  return (
+    <div className="Users">
+      <div className="UsersPage__users">{UsersElements}</div>
+    </div>
+  );
+};
 
 export default Users;

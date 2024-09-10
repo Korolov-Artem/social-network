@@ -1,5 +1,6 @@
 const FOLLOW = "FOLLOW";
-const UN_FOLLOW = "UN-FOLLOW";
+const UNFOLLOW = "UNFOLLOW";
+const SET_USERS = "SET-USERS";
 
 let initialState = {
   UsersState: [
@@ -9,7 +10,7 @@ let initialState = {
       photo: "https://www.pngall.com/wp-content/uploads/5/Profile.png",
       status: "Everything is OK",
       location: { city: "Edmonton", country: "Canada" },
-      followStatus: false,
+      followStatus: true,
     },
     {
       id: "32",
@@ -33,29 +34,31 @@ let initialState = {
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case FOLLOW: {
-      let selectedUser = (action) => {
-        state.UsersState.find((user) => user.id === action.id);
-      };
       return {
         ...state,
-        UsersState: [...(state.UsersState[selectedUser].followStatus = true)],
+        UsersState: state.UsersState.map((user) =>
+          user.id === action.id ? { ...user, followStatus: true } : user
+        ),
       };
     }
-    case UN_FOLLOW: {
-      let selectedUser = (action) => {
-        state.UsersState.find((user) => user.id === action.id);
-      };
+    case UNFOLLOW: {
       return {
         ...state,
-        UsersState: [...(state.UsersState[selectedUser].followStatus = false)],
+        UsersState: state.UsersState.map((user) =>
+          user.id === action.id ? { ...user, followStatus: false } : user
+        ),
       };
+    }
+    case SET_USERS: {
+      return { ...state, UsersState: [...state.UsersState, ...action.users] };
     }
     default:
       return state;
   }
 };
 
-export const followActionCreator = (id) => ({ type: FOLLOW, id: id });
-export const unFollowActionCreator = (id) => ({ type: UN_FOLLOW, id: id });
+export const followAC = (id) => ({ type: FOLLOW, id: id });
+export const unfollowAC = (id) => ({ type: UNFOLLOW, id: id });
+export const setUsersAC = (users) => ({ type: SET_USERS, users: users });
 
 export default usersReducer;
