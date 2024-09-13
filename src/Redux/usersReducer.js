@@ -3,32 +3,7 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
 
 let initialState = {
-  UsersState: [
-    {
-      id: "23",
-      name: "Arkey",
-      photo: "https://www.pngall.com/wp-content/uploads/5/Profile.png",
-      status: "Everything is OK",
-      location: { city: "Edmonton", country: "Canada" },
-      followStatus: true,
-    },
-    {
-      id: "32",
-      name: "Tronay",
-      photo: "https://www.pngall.com/wp-content/uploads/5/Profile.png",
-      status: "eh...",
-      location: { city: "Edmonton", country: "Canada" },
-      followStatus: false,
-    },
-    {
-      id: "8",
-      name: "Keray",
-      photo: "https://www.pngall.com/wp-content/uploads/5/Profile.png",
-      status: "Noice",
-      location: { city: "Edmonton", country: "Canada" },
-      followStatus: false,
-    },
-  ],
+  UsersState: [],
 };
 
 const usersReducer = (state = initialState, action) => {

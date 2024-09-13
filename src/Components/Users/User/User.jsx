@@ -1,5 +1,6 @@
 import React from "react";
 import "./User.css";
+import defaultImage from "../../../Assets/Images/User.png"
 
 const User = (props) => {
   let isFollowed = () => {
@@ -8,7 +9,7 @@ const User = (props) => {
 
   const follow = (id) => {
     props.follow(id);
-  };
+  }; 
 
   const unfollow = (id) => {
     props.unfollow(id);
@@ -17,12 +18,20 @@ const User = (props) => {
   return (
     <div className="UsersPage__users__user">
       <h2>{props.state.name}</h2>
-      <img src={props.state.photo} alt={props.state.photo} />
+      <img
+        src={
+          props.state.photos.small != null
+            ? props.state.photos.small
+            : defaultImage
+        }
+        alt={
+          props.state.photos.small != null
+            ? props.state.photos.small
+            : defaultImage
+        }
+      />
       <h3>{props.state.status}</h3>
-      <div>
-        <p>{props.state.location.city}</p>
-        <p>{props.state.location.country}</p>
-      </div>
+      <div></div>
 
       <button
         onClick={() =>
