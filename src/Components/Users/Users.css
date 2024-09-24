@@ -15,3 +15,12 @@
 .Users__pages__currentPageButton{
   font-weight: 1000;
 }
+
+.Users__loader {
+  position: absolute;
+  z-index: 1000;
+  margin-top: 20%;
+  margin-left: 40%;
+  width: 300px;
+  height: 300px;
+}
