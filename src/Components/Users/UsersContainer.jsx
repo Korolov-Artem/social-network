@@ -10,33 +10,33 @@ import {
 } from "../../Redux/usersReducer";
 import axios from "axios";
 import Users from "./Users";
-import "./Users.css"
-import loader from "../../Assets/Images/loader.svg";
+import "./Users.css";
 import Loader from "../Common/Loader/Loader";
 
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
-    this.props.toggleIsFetching(true)
+    this.props.toggleIsFetching(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
       )
       .then((users) => {
-        this.props.toggleIsFetching(false)
+        this.props.toggleIsFetching(false);
         this.props.setUsers(users.data.items);
         this.props.setUsersCount(users.data.totalCount);
       });
   }
 
   onPageChange = (page) => {
-    this.props.toggleIsFetching(true)
+    this.props.toggleIsFetching(true);
     this.props.setPage(page);
+
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`
       )
       .then((users) => {
-        this.props.toggleIsFetching(false)
+        this.props.toggleIsFetching(false);
         this.props.setUsers(users.data.items);
       });
   };
@@ -44,16 +44,13 @@ class UsersAPIComponent extends React.Component {
   render() {
     return (
       <>
-        {this.props.isFetching ? <img src={loader} alt={loader} className="Users__loader"/> : null}
-        <Users
-          totalUsersCount={this.props.totalUsersCount}
-          pageSize={this.props.pageSize}
-          currentPage={this.props.currentPage}
-          onPageChange={this.onPageChange}
-          state={this.props.state}
-          follow={this.props.follow}
-          unfollow={this.props.unfollow}
-        />
+        {this.props.isFetching ? (
+          <div className="Users__loader">
+            <Loader className="Users__loader__loaderImg"/>
+          </div>
+        ) : (
+          <Users {...this.props} onPageChange={this.onPageChange} />
+        )}
       </>
     );
   }
@@ -87,8 +84,8 @@ let mapDispatchToProps = (dispatch) => {
       dispatch(setUsersCountAC(totalUsersCount));
     },
     toggleIsFetching: (isFetching) => {
-      dispatch(toggleIsFetching(isFetching))
-    }
+      dispatch(toggleIsFetching(isFetching));
+    },
   };
 };
 
