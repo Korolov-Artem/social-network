@@ -34,6 +34,7 @@ const User = (props) => {
       <div></div>
 
       <button
+        className="User__followButton"
         onClick={() =>
           isFollowed() ? unfollow(props.state.id) : follow(props.state.id)
         }

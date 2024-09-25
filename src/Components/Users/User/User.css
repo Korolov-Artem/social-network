@@ -2,3 +2,29 @@
     height: 50px;
     width: 50px;
 }
+
+.User__followButton {
+    font-family: inherit;
+    border: none;
+    outline: 1px dotted rgb(37, 37, 37);
+    outline-offset: -4px;
+    cursor: pointer;
+    background: hsl(0deg 0% 75%);
+    box-shadow:
+      inset -1px -1px #292929,
+      inset 1px 1px #fff,
+      inset -2px -2px rgb(158, 158, 158),
+      inset 2px 2px #ffffff;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 5px 30px;
+}
+  
+.User__followButton:active {
+    box-shadow:
+      inset -1px -1px #fff,
+      inset 1px 1px #292929,
+      inset -2px -2px #ffffff,
+      inset 2px 2px rgb(158, 158, 158);
+}

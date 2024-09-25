@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import Users from "./Users";
 import "./Users.css";
-import Loader from "../Common/Loader/Loader";
+import BetterLoader from "../Common/Loader/BetterLoader";
 
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
@@ -46,11 +46,10 @@ class UsersAPIComponent extends React.Component {
       <>
         {this.props.isFetching ? (
           <div className="Users__loader">
-            <Loader className="Users__loader__loaderImg"/>
+            <BetterLoader />
           </div>
-        ) : (
-          <Users {...this.props} onPageChange={this.onPageChange} />
-        )}
+        ) : null}
+        <Users {...this.props} onPageChange={this.onPageChange} />
       </>
     );
   }
