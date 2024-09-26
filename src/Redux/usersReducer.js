@@ -48,14 +48,14 @@ const usersReducer = (state = initialState, action) => {
   }
 };
 
-export const followAC = (id) => ({ type: FOLLOW, id: id });
-export const unfollowAC = (id) => ({ type: UNFOLLOW, id: id });
-export const setUsersAC = (users) => ({ type: SET_USERS, users: users });
-export const setPageAC = (currentPage) => ({
+export const follow = (id) => ({ type: FOLLOW, id: id });
+export const unfollow = (id) => ({ type: UNFOLLOW, id: id });
+export const setUsers = (users) => ({ type: SET_USERS, users: users });
+export const setPage = (currentPage) => ({
   type: SET_PAGE,
   currentPage: currentPage,
 });
-export const setUsersCountAC = (totalUsersCount) => ({
+export const setUsersCount = (totalUsersCount) => ({
   type: SET_USERS_COUNT,
   totalUsersCount: totalUsersCount,
 });
