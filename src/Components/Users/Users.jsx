@@ -9,6 +9,7 @@ const Users = (props) => {
       follow={props.follow}
       unfollow={props.unfollow}
       state={user}
+      id={user.id}
     />
   ));
 
