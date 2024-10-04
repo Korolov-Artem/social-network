@@ -2,4 +2,20 @@
     grid-area: Header;
     background-color: #724a56;
     color: #f8dee7;
-  }
+}
+
+.Header__login__button {
+  color: #f8dee7;
+  display: flex;
+  justify-content: right;
+  margin-right: 20%;
+  margin-top: 3%;
+  font-size: 20px;
+}
+
+.Header__login {
+  display: flex;
+  justify-content: right;
+  margin-right: 20%;
+  margin-top: 3%;
+}
