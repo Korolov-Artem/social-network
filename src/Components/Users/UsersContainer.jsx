@@ -8,37 +8,45 @@ import {
   toggleIsFetching,
   unfollow,
 } from "../../Redux/usersReducer";
-import axios from "axios";
 import Users from "./Users";
 import "./Users.css";
 import BetterLoader from "../Common/Loader/BetterLoader";
+import { usersAPI } from "../../api/api";
 
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
     this.props.toggleIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
-      )
-      .then((users) => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(users.data.items);
-        this.props.setUsersCount(users.data.totalCount);
-      });
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then((users) => {
+      this.props.toggleIsFetching(false);
+      this.props.setUsers(users.items);
+      this.props.setUsersCount(users.totalCount);
+    });
   }
+
+  onUserFollow = (id) => {
+    usersAPI.followUser(id).then((user) => {
+      if (user.resultCode === 0) {
+        this.props.follow(id);
+      }
+    });
+  };
+
+  onUserUnfollow = (id) => {
+    usersAPI.unfollowUser(id).then((user) => {
+      if (user.resultCode === 0) {
+        this.props.unfollow(id);
+      }
+    });
+  };
 
   onPageChange = (page) => {
     this.props.toggleIsFetching(true);
     this.props.setPage(page);
 
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`
-      )
-      .then((users) => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(users.data.items);
-      });
+    usersAPI.getUsers(page, this.props.pageSize).then((users) => {
+      this.props.toggleIsFetching(false);
+      this.props.setUsers(users.items);
+    });
   };
 
   render() {
@@ -49,7 +57,12 @@ class UsersAPIComponent extends React.Component {
             <BetterLoader />
           </div>
         ) : null}
-        <Users {...this.props} onPageChange={this.onPageChange} />
+        <Users
+          {...this.props}
+          onPageChange={this.onPageChange}
+          onUserUnfollow={this.onUserUnfollow}
+          onUserFollow={this.onUserFollow}
+        />
       </>
     );
   }

@@ -6,10 +6,9 @@ const Users = (props) => {
   let UsersElements = props.state.map((user) => (
     <User
       key={user.id}
-      follow={props.follow}
-      unfollow={props.unfollow}
+      onUserFollow={props.onUserFollow}
+      onUserUnfollow={props.onUserUnfollow}
       state={user}
-      id={user.id}
     />
   ));
 
@@ -52,7 +51,7 @@ const Users = (props) => {
             </button>
           );
         })}
-      </div>
+      </div> 
       <div className="Users__UsersPage__usersElements">{UsersElements}</div>
     </div>
   );

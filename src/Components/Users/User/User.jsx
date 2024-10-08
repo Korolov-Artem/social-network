@@ -4,21 +4,9 @@ import defaultImage from "../../../Assets/Images/User.png";
 import { NavLink } from "react-router-dom";
 
 const User = (props) => {
-  let isFollowed = () => {
-    return props.state.followStatus;
-  };
-
-  const follow = (id) => {
-    props.follow(id);
-  };
-
-  const unfollow = (id) => {
-    props.unfollow(id);
-  };
-
   return (
     <div className="UsersPage__users__user">
-      <NavLink to={"/profile/" + props.id}>
+      <NavLink to={"/profile/" + props.state.id}>
         <h2>{props.state.name}</h2>
         <img
           src={
@@ -39,10 +27,12 @@ const User = (props) => {
       <button
         className="User__followButton"
         onClick={() =>
-          isFollowed() ? unfollow(props.state.id) : follow(props.state.id)
+          props.state.followed
+            ? props.onUserUnfollow(props.state.id)
+            : props.onUserFollow(props.state.id)
         }
       >
-        {isFollowed() ? "Unfollow" : "Follow"}
+        {props.state.followed ? "Unfollow" : "Follow"}
       </button>
     </div>
   );
