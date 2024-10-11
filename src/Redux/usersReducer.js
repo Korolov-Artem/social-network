@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
@@ -78,5 +80,38 @@ export const toggleFollowingInProgress = (followingInProgress, id) => ({
     followingInProgress: followingInProgress,
     id: id,
 })
+export const getUsers = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize).then((users) => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(users.items))
+            dispatch(setUsersCount(users.totalCount))
+            dispatch(setPage(currentPage))
+        });
+    }
+}
+export const followUser = (id) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingInProgress(true, id))
+        usersAPI.followUser(id).then((user) => {
+            dispatch(toggleFollowingInProgress(false, id))
+            if (user.resultCode === 0) {
+                dispatch(follow(id))
+            }
+        });
+    }
+}
+export const unfollowUser = (id) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingInProgress(true, id))
+        usersAPI.unfollowUser(id).then((user) => {
+            dispatch(toggleFollowingInProgress(false, id))
+            if (user.resultCode === 0) {
+                dispatch(unfollow(id))
+            }
+        });
+    }
+}
 
 export default usersReducer;

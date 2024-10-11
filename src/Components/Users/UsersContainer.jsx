@@ -1,58 +1,30 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-    follow,
-    setPage,
-    setUsers,
-    setUsersCount,
-    toggleFollowingInProgress,
-    toggleIsFetching,
-    unfollow,
+    getUsers,
+    followUser,
+    unfollowUser,
 } from "../../Redux/usersReducer";
 import Users from "./Users";
 import "./Users.css";
 import BetterLoader from "../Common/Loader/BetterLoader";
-import {usersAPI} from "../../api/api";
 
 class UsersAPIComponent extends React.Component {
     componentDidMount() {
-        this.props.toggleIsFetching(true);
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then((users) => {
-            this.props.toggleIsFetching(false);
-            this.props.setUsers(users.items);
-            this.props.setUsersCount(users.totalCount);
-        });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onUserFollow = (id) => {
-        this.props.toggleFollowingInProgress(true,id)
-        usersAPI.followUser(id).then((user) => {
-            this.props.toggleFollowingInProgress(false,id)
-            if (user.resultCode === 0) {
-                this.props.follow(id);
-            }
-        });
+        this.props.followUser(id)
     };
 
     onUserUnfollow = (id) => {
-        this.props.toggleFollowingInProgress(true, id)
-        usersAPI.unfollowUser(id).then((user) => {
-            this.props.toggleFollowingInProgress(false, id)
-            if (user.resultCode === 0) {
-                this.props.unfollow(id);
-            }
-        });
+        this.props.unfollowUser(id)
     };
 
     onPageChange = (page) => {
-        this.props.toggleIsFetching(true);
-        this.props.setPage(page);
-
-        usersAPI.getUsers(page, this.props.pageSize).then((users) => {
-            this.props.toggleIsFetching(false);
-            this.props.setUsers(users.items);
-        });
-    };
+        this.props.getUsers(page, this.props.pageSize)
+    }
 
     render() {
         return (
@@ -86,13 +58,9 @@ let mapStateToProps = (state) => {
 };
 
 const UsersContainer = connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
-    setPage,
-    setUsersCount,
-    toggleIsFetching,
-    toggleFollowingInProgress
+    getUsers,
+    followUser,
+    unfollowUser,
 })(UsersAPIComponent);
 
 export default UsersContainer;
