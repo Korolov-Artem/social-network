@@ -7,12 +7,10 @@ const NewPost = (props) => {
     
     let updateNewPostText = () => {
         let newText = newPostElement.current.value;
-        // props.dispatch(updateNewPostTextActionCreator(newText))
         props.updateNewPostText(newText)
     }
 
     let addPost = () => {
-        // props.dispatch(addPostActionCreator())
         props.addPost()
     }
 

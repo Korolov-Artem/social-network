@@ -1,3 +1,5 @@
+import {profileAPI} from "../api/api";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
@@ -50,9 +52,19 @@ export const toggleIsFetching = (isFetching) => ({
   type: TOGGLE_IS_FETCHING,
   isFetching: isFetching,
 });
-export const setUserProfile = (profile) => ({
+export const setUserProfileSuccess = (profile) => ({
   type: SET_USER_PROFILE,
   profile: profile,
 });
+export const setUserProfile = (userId) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    profileAPI.getProfile(userId)
+        .then((profile) => {
+          dispatch(setUserProfileSuccess(profile))
+          dispatch(toggleIsFetching(false))
+        });
+  }
+}
 
 export default profileReducer;
