@@ -6,7 +6,7 @@ import {
   updateNewPostText,
   setUserProfile,
 } from "../../Redux/profileReducer";
-import { useParams } from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 
 export function withRouter(Children) {
   return (props) => {
@@ -25,6 +25,7 @@ class ProfileAPIComponent extends React.Component {
   }
 
   render() {
+    if(!this.props.isAuth) return <Navigate to="/login" />;
     return (
       <Profile
         {...this.props}
@@ -39,6 +40,7 @@ let mapStateToProps = (state) => {
   return {
     state: state.ProfilePage,
     isFetching: state.ProfilePage.isFetching,
+    isAuth: state.auth.isAuth,
   };
 };
 
