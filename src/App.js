@@ -9,7 +9,7 @@ import UsersContainer from "./Components/Users/UsersContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import Login from "./Components/Login/Login";
 
-const App = (props) => {
+const App = () => {
   return (
     <BrowserRouter>
       <div className="Container">

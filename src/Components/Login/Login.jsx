@@ -1,6 +1,6 @@
 import "./Login.css"
 
-const Login = (props) => {
+const Login = () => {
     return (
         <div className="Login">Login</div>
     )

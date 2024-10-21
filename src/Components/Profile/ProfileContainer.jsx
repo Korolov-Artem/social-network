@@ -6,7 +6,9 @@ import {
   updateNewPostText,
   setUserProfile,
 } from "../../Redux/profileReducer";
-import {Navigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
+import {withAuthRedirect} from "../../HOC/AuthRedirect";
+import {compose} from "redux";
 
 export function withRouter(Children) {
   return (props) => {
@@ -15,7 +17,7 @@ export function withRouter(Children) {
   };
 }
 
-class ProfileAPIComponent extends React.Component {
+class ProfileContainer extends React.Component {
   componentDidMount() {
     let userId = this.props.match.params.userId;
     if (!userId) {
@@ -25,7 +27,6 @@ class ProfileAPIComponent extends React.Component {
   }
 
   render() {
-    if(!this.props.isAuth) return <Navigate to="/login" />;
     return (
       <Profile
         {...this.props}
@@ -40,16 +41,16 @@ let mapStateToProps = (state) => {
   return {
     state: state.ProfilePage,
     isFetching: state.ProfilePage.isFetching,
-    isAuth: state.auth.isAuth,
   };
 };
 
-let ProfileUrlDataContainer = withRouter(ProfileAPIComponent);
+export default compose(
+    connect(mapStateToProps, {
+      updateNewPostText,
+      addPost,
+      setUserProfile
+    }),
+    withRouter,
+    withAuthRedirect,
+)(ProfileContainer)
 
-const ProfileContainer = connect(mapStateToProps, {
-  updateNewPostText,
-  addPost,
-  setUserProfile
-})(ProfileUrlDataContainer);
-
-export default ProfileContainer;

@@ -1,6 +1,7 @@
 import React from "react";
 import "./ProfileData.css";
 import BetterLoader from "../../Common/Loader/BetterLoader";
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
 const ProfileData = (props) => {
   if (!props.profile) {
@@ -17,6 +18,7 @@ const ProfileData = (props) => {
         <div className="Profile__name">
           <h2>{props.profile.fullName}</h2>
         </div>
+          <ProfileStatus status="Hi!" className="Profile__status" />
         <div className="Profile__description">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

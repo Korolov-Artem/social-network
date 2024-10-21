@@ -8,8 +8,9 @@ import {
 import Users from "./Users";
 import "./Users.css";
 import BetterLoader from "../Common/Loader/BetterLoader";
+import {compose} from "redux";
 
-class UsersAPIComponent extends React.Component {
+class UsersContainer extends React.Component {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
@@ -57,10 +58,10 @@ let mapStateToProps = (state) => {
     };
 };
 
-const UsersContainer = connect(mapStateToProps, {
-    getUsers,
-    followUser,
-    unfollowUser,
-})(UsersAPIComponent);
-
-export default UsersContainer;
+export default compose(
+    connect(mapStateToProps, {
+        getUsers,
+        followUser,
+        unfollowUser,
+    })
+)(UsersContainer);
