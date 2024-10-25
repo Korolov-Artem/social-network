@@ -1,9 +1,9 @@
 import React from 'react';
 
 class ProfileStatus extends React.Component {
-
     state = {
         editMode: false,
+        localStatus: this.props.status
     }
 
     changeEditMode = () => {
@@ -11,7 +11,12 @@ class ProfileStatus extends React.Component {
             this.setState({editMode: true});
         } else {
             this.setState({editMode: false});
+            this.props.setProfileStatus(this.state.localStatus);
         }
+    }
+
+    onStatusChange = (event) => {
+        this.setState({localStatus: event.currentTarget.value})
     }
 
     render() {
@@ -23,7 +28,9 @@ class ProfileStatus extends React.Component {
                     </div>
                     :
                     <div className="profile__status__changeText">
-                        <input autoFocus={true} onBlur={this.changeEditMode} value={this.props.status}/>
+                        <input onChange={this.onStatusChange} autoFocus={true} onBlur={this.changeEditMode}
+                               value={this.state.localStatus}
+                        />
                     </div>
                 }
             </div>
