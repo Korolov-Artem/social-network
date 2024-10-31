@@ -1,10 +1,10 @@
-import "./Login.css"
+import "./LoginForm.css"
 import {Field, Form, Formik} from "formik";
 
-const Login = () => {
+const LoginForm = () => {
     return (
         <div className="Login">
-            <h1>Login</h1>
+            <h1>LoginForm</h1>
             <Formik
                 initialValues={{email: '', password: '', remember: false}}
                 onSubmit={(values) => {
@@ -24,7 +24,7 @@ const Login = () => {
                             <label htmlFor={"remember"}>Remember Me</label>
                         </div>
                         <div>
-                            <button type="submit">Login</button>
+                            <button type="submit">LoginForm</button>
                         </div>
                     </Form>
                 )}
@@ -33,4 +33,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default LoginForm;

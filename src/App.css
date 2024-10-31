@@ -1,15 +1,15 @@
 .Container {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1.9fr 1fr;
-  grid-template-rows: 1fr 5fr 1fr 1fr;
-  gap: 1.5px 1.5px;
-  grid-template-areas:
+    display: grid;
+    grid-template-columns: 1fr 2fr 1.9fr 1fr;
+    grid-template-rows: 1fr 5fr 1fr 1fr;
+    gap: 1.5px 1.5px;
+    grid-template-areas:
     "Navbar Header Header Header"
     "Navbar Content Content SideBar"
     "Navbar Content Content SideBar"
     "Navbar Content Content SideBar"
     "Navbar Content Content SideBar"
     "Navbar Content Content SideBar";
-  background-color: #0a1417;
-  font-family: 'Karla';
+    background-color: #0a1417;
+    font-family: 'Karla';
 }

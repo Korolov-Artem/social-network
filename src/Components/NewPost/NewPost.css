@@ -1,17 +1,16 @@
-.Profile__newPost__textarea {
+.Profile__newPost__text {
     height: 120px;
     width: 95%;
-    resize: none;
     margin-left: 2%;
     margin-top: 5%;
     font-family: "Karla";
     font-size: 120%;
     border-radius: 10px;
-  }
-  
-  .Profile__newPost__postButton button{
+}
+
+.Profile__newPost__postButton button {
     margin-top: 2%;
     margin-left: 90%;
     height: 50px;
     width: 80px;
-  }
+}

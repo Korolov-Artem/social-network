@@ -1,32 +1,9 @@
 import React from "react";
-
-
+import AddMessageForm from "../../../Forms/AddMessageForm/AddMessageForm";
 
 const AddMessage = (props) => {
-    
-    let newDialogsMessageElement = React.createRef()
-    
-    let addMessage = () => {
-        props.addMessage()
-    }
-
-    let updateNewMessageText = () => {
-        let newMessage = newDialogsMessageElement.current.value
-        props.updateNewMessageText(newMessage)
-    }
-    
     return (
-        <div className="Dialogs__AddMessage">
-            <textarea ref={newDialogsMessageElement} 
-                className="Dialogs__AddMessage_textarea" 
-                onChange={updateNewMessageText}
-                value={props.newDialogsText}
-            />
-            <button
-             onClick={addMessage}
-             className="Dialogs__AddMessage_button"
-             >Send</button>
-        </div>
+        <AddMessageForm addMessage={props.addMessage} updateNewMessageText={props.updateNewMessageText}/>
     )
 }
 
