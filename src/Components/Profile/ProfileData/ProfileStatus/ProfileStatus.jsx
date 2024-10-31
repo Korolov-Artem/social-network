@@ -19,12 +19,20 @@ class ProfileStatus extends React.Component {
         this.setState({localStatus: event.currentTarget.value})
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                localStatus: this.props.status
+            })
+        }
+    }
+
     render() {
         return (
             <div className="Profile__status">
                 {!this.state.editMode ?
                     <div className="Profile__status__text">
-                        <h3 onDoubleClick={this.changeEditMode}>{this.props.status}</h3>
+                        <h3 onDoubleClick={this.changeEditMode}>{this.props.status || "---------------"}</h3>
                     </div>
                     :
                     <div className="profile__status__changeText">
