@@ -3,24 +3,19 @@ import {Field, Form, Formik} from "formik";
 
 const AddPostForm = (props) => {
     return (
-        <div className="Profile__newPost">
+        <div>
             <Formik
                 initialValues={{newPostText: props.newPostText}}
                 onSubmit={(values, {resetForm}) => {
-                    props.updateNewPostText(values.newPostText);
-                    props.addPost();
+                    props.addPost(values.newPostText);
                     resetForm();
                 }}
             >
-                {({handleChange, handleSubmit}) => (
+                {({handleChange}) => (
                     <Form>
-                        <div>
+                        <div className="Profile__newPost">
                             <Field name={"newPostText"} type={"text"} as={"textarea"}
                                    placeholder={"Write your post..."}
-                                   onChange={(e) => {
-                                       handleChange(e);
-                                       props.updateNewPostText(e.target.value);
-                                   }}
                                    className="Profile__newPost__text"/>
                         </div>
                         <div className="Profile__newPost__postButton">

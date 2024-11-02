@@ -24,7 +24,7 @@ const LoginForm = () => {
                             <label htmlFor={"remember"}>Remember Me</label>
                         </div>
                         <div>
-                            <button type="submit">LoginForm</button>
+                            <button type="submit">Login</button>
                         </div>
                     </Form>
                 )}

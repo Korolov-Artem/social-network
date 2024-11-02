@@ -1,7 +1,7 @@
 import {profileAPI} from "../api/api";
 
 const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+// const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
@@ -22,7 +22,7 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST: {
             let newPost = {
                 id: 1,
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0,
             };
             return {
@@ -31,9 +31,9 @@ const profileReducer = (state = initialState, action) => {
                 newPostText: "",
             };
         }
-        case UPDATE_NEW_POST_TEXT: {
-            return {...state, newPostText: action.newText};
-        }
+        // case UPDATE_NEW_POST_TEXT: {
+        //     return {...state, newPostText: action.newText};
+        // }
         case TOGGLE_IS_FETCHING: {
             return {...state, isFetching: action.isFetching};
         }
@@ -48,11 +48,13 @@ const profileReducer = (state = initialState, action) => {
     }
 };
 
-export const addPost = () => ({type: ADD_POST});
-export const updateNewPostText = (newText) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: newText,
+export const addPost = (newPostText) => ({
+    type: ADD_POST, newPostText: newPostText
 });
+// export const updateNewPostText = (newText) => ({
+//     type: UPDATE_NEW_POST_TEXT,
+//     newText: newText,
+// });
 export const toggleIsFetching = (isFetching) => ({
     type: TOGGLE_IS_FETCHING,
     isFetching: isFetching,

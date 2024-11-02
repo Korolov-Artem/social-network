@@ -4,20 +4,19 @@ import React from "react";
 const AddMessageForm = (props) => {
     return (
         <Formik
-            initialValues={{newMessage: ""}}
+            initialValues={{newDialogsText: props.newDialogsText}}
             onSubmit={(values, {resetForm}) => {
-                props.updateNewMessageText(values.newMessage);
-                props.addMessage();
+                props.addMessage(values.newDialogsText);
                 resetForm();
             }}
         >
-            {() => (
+            {({handleChange}) => (
                 <Form>
                     <div className="Dialogs__AddMessage">
                         <div>
                             <Field
                                 className="Dialogs__AddMessage_textarea"
-                                name={"newMessage"}
+                                name={"newDialogsText"}
                                 as={"textarea"}
                                 placeholder={"Enter Message"}
                             />
