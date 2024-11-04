@@ -14,3 +14,10 @@
     height: 50px;
     width: 80px;
 }
+
+.Profile__newPost__text__error {
+    color: red;
+    font-weight: bold;
+    font-size: 120%;
+    margin-left: 2%;
+}
