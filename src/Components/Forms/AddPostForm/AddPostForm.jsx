@@ -1,13 +1,7 @@
 import React from "react";
 import {Field, Form, Formik} from "formik";
-
-let validatePost = (value) => {
-    let error;
-    if (!value) {
-        error = "Required field";
-    }
-    return error
-};
+import {composeValidators, isRequired, maxLength} from "../Validation";
+import {Textarea} from "../FormsBlueprints/FormsBlueprints";
 
 const AddPostForm = (props) => {
     return (
@@ -22,13 +16,12 @@ const AddPostForm = (props) => {
                 {({handleChange, errors, touched}) => (
                     <Form>
                         <div className="Profile__newPost">
-                            <Field name={"newPostText"} type={"text"} as={"textarea"}
+                            <Field name={"newPostText"} type={"text"} as={Textarea}
                                    placeholder={"Write your post..."}
                                    className="Profile__newPost__text"
-                                   validate={validatePost}/>
+                                   validate={composeValidators(isRequired, maxLength(500))}/>
                             {errors.newPostText && touched.newPostText &&
-                                <div className="Profile__newPost__text__error">
-                                    {errors.newPostText}</div>}
+                                <div>{errors.newPostText}</div>}
                         </div>
                         <div className="Profile__newPost__postButton">
                             <button type={"submit"}>
