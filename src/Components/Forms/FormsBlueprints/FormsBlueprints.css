@@ -1,7 +1,10 @@
-.Forms__FormsBlueprints__Textarea.error input,
-.Forms__FormsBlueprints__Textarea.error textarea {
+.Forms__FormsBlueprints__Textarea__error {
     color: red;
     font-weight: bold;
     font-size: 120%;
     margin-left: 2%;
+}
+
+.Forms__FormsBlueprints__Textarea__false {
+    border: 1px solid red;
 }

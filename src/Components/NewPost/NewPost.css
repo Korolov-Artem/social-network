@@ -6,6 +6,7 @@
     font-family: "Karla";
     font-size: 120%;
     border-radius: 10px;
+    resize: none;
 }
 
 .Profile__newPost__postButton button {
