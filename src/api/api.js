@@ -25,6 +25,12 @@ export const usersAPI = {
 export const authAPI = {
     setMe() {
         return axiosInstance.get("auth/me").then((user) => user.data)
+    },
+    login(email, password, rememberMe = false) {
+        return axiosInstance.post("auth/login", {email, password, rememberMe}).then((user) => user.data)
+    },
+    logout() {
+        return axiosInstance.delete("auth/login")
     }
 }
 

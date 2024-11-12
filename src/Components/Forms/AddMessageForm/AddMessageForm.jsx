@@ -1,5 +1,7 @@
-import {Field, Form, Formik} from "formik";
+import {Form, Formik} from "formik";
 import React from "react";
+import {CustomField} from "../FormsBlueprints/FormsBlueprints";
+import {composeValidators, isRequired, maxLength} from "../Validation";
 
 const AddMessageForm = (props) => {
     return (
@@ -10,15 +12,16 @@ const AddMessageForm = (props) => {
                 resetForm();
             }}
         >
-            {({handleChange}) => (
+            {(meta) => (
                 <Form>
                     <div className="Dialogs__AddMessage">
                         <div>
-                            <Field
-                                className="Dialogs__AddMessage_textarea"
+                            <CustomField
                                 name={"newDialogsText"}
-                                as={"textarea"}
                                 placeholder={"Enter Message"}
+                                className="Dialogs__AddMessage_textarea"
+                                component={"textarea"}
+                                validate={composeValidators(isRequired, maxLength(300))}
                             />
                         </div>
                         <div>
