@@ -70,11 +70,11 @@ export const setProfileStatusSuccess = (status) => ({
 
 export const setUserProfile = (userId) => {
     return (dispatch) => {
-        dispatch(toggleIsFetching(true))
+        // dispatch(toggleIsFetching(true))
         profileAPI.getProfile(userId)
             .then((profile) => {
                 dispatch(setUserProfileSuccess(profile))
-                dispatch(toggleIsFetching(false))
+                // dispatch(toggleIsFetching(false))
             });
     }
 }

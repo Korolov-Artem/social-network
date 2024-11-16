@@ -15,11 +15,17 @@ const LoginForm = (props) => {
             <h1>LoginForm</h1>
             <Formik
                 initialValues={{email: '', password: '', remember: false}}
-                onSubmit={(values) => {
-                    props.login(values.email, values.password, values.remember);
+                onSubmit={(values, submitProps) => {
+                    let formValues = {
+                        email: values.email,
+                        password: values.password,
+                        remember: values.remember,
+                    }
+                    props.login(formValues, submitProps.setStatus);
+                    submitProps.resetForm();
                 }}
             >
-                {(isValid) => (
+                {({status}) => (
                     <Form>
                         <div>
                             <CustomField
@@ -43,11 +49,11 @@ const LoginForm = (props) => {
                             <Field name={"remember"} type={"checkbox"} placeholder={"Remember Me"}/>
                             <label htmlFor={"remember"}>Remember Me</label>
                         </div>
-                        {isValid && (
-                            <div>
-                                <button type="submit">Login</button>
-                            </div>
-                        )}
+                        <div>
+                            <button type="submit">Login</button>
+                        </div>
+                        {status && status.errors && <div className="api-error">{status.errors.map(
+                            (item, index) => <div key={index}>{item}</div>)}</div>}
                     </Form>
                 )}
             </Formik>

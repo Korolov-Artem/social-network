@@ -39,7 +39,7 @@ export const toggleIsFetching = (isFetching) => ({
 export const setUserData = () => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true))
-        authAPI.setMe().then((user) => {
+        return authAPI.setMe().then((user) => {
             let {id, email, login} = user.data;
             if (user.resultCode === 0) {
                 dispatch(setUserDataSuccess(id, email, login, true))
@@ -48,15 +48,18 @@ export const setUserData = () => {
         });
     }
 }
-export const login = (email, password, rememberMe) => {
+export const login = (formValues, setStatus) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true))
-        authAPI.login(email, password, rememberMe).then((user) => {
-            if (user.resultCode === 0) {
-                dispatch(setUserData())
-            }
-            dispatch(toggleIsFetching(false))
-        })
+        authAPI.login(formValues.email, formValues.password, formValues.remember)
+            .then((user) => {
+                if (user.resultCode === 0) {
+                    dispatch(setUserData())
+                } else {
+                    setStatus({errors: user.messages || "Some Error"})
+                }
+                dispatch(toggleIsFetching(false))
+            })
     }
 }
 export const logout = () => {
