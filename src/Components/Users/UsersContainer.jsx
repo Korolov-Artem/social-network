@@ -1,14 +1,19 @@
 import React from "react";
 import {connect} from "react-redux";
-import {
-    getUsers,
-    followUser,
-    unfollowUser,
-} from "../../Redux/usersReducer";
+import {followUser, getUsers, unfollowUser,} from "../../Redux/usersReducer";
 import Users from "./Users";
 import "./Users.css";
 import BetterLoader from "../Common/Loader/BetterLoader";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getFollowingInProgressUserArray,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsersState
+} from "../../Redux/usersSelectors";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -48,13 +53,13 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        state: state.UsersPage.UsersState,
-        pageSize: state.UsersPage.pageSize,
-        totalUsersCount: state.UsersPage.totalUsersCount,
-        currentPage: state.UsersPage.currentPage,
-        isFetching: state.UsersPage.isFetching,
-        followingInProgress: state.UsersPage.followingInProgress,
-        followingInProgressUserArray: state.UsersPage.followingInProgressUserArray
+        state: getUsersState(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
+        followingInProgressUserArray: getFollowingInProgressUserArray(state),
     };
 };
 
