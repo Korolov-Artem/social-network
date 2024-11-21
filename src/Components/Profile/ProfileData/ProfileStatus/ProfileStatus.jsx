@@ -1,49 +1,36 @@
-import React from 'react';
+import React, {useState} from "react";
 
-class ProfileStatus extends React.Component {
-    state = {
-        editMode: false,
-        localStatus: this.props.status
-    }
+const ProfileStatus = (props) => {
+    let [editMode, setEditMode] = useState(false);
+    let [status, setStatus] = useState(props.status);
 
-    changeEditMode = () => {
-        if (!this.state.editMode) {
-            this.setState({editMode: true});
+    const changeEditMode = () => {
+        if (!editMode) {
+            setEditMode(true);
         } else {
-            this.setState({editMode: false});
-            this.props.setProfileStatus(this.state.localStatus);
+            setEditMode(false);
+            props.setProfileStatus(status)
         }
     }
-
-    onStatusChange = (event) => {
-        this.setState({localStatus: event.currentTarget.value})
+    const changeStatus = (e) => {
+        setStatus(e.currentTarget.value);
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.status !== this.props.status) {
-            this.setState({
-                localStatus: this.props.status
-            })
-        }
-    }
-
-    render() {
-        return (
-            <div className="Profile__status">
-                {!this.state.editMode ?
-                    <div className="Profile__status__text">
-                        <h3 onDoubleClick={this.changeEditMode}>{this.props.status || "---------------"}</h3>
-                    </div>
-                    :
-                    <div className="profile__status__changeText">
-                        <input onChange={this.onStatusChange} autoFocus={true} onBlur={this.changeEditMode}
-                               value={this.state.localStatus}
-                        />
-                    </div>
-                }
-            </div>
-        )
-    }
+    return (
+        <div className="Profile__status">
+            {!editMode ?
+                <div className="Profile__status__text">
+                    <h3 onDoubleClick={changeEditMode}>{props.status || "---------------"}</h3>
+                </div>
+                :
+                <div className="profile__status__changeText">
+                    <input onChange={changeStatus} autoFocus={true} onBlur={changeEditMode}
+                           value={status}
+                    />
+                </div>
+            }
+        </div>
+    )
 }
 
 export default ProfileStatus;
