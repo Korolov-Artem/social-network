@@ -1,7 +1,6 @@
 import {profileAPI} from "../api/api";
 
 const ADD_POST = "ADD-POST";
-// const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
@@ -31,9 +30,6 @@ const profileReducer = (state = initialState, action) => {
                 newPostText: "",
             };
         }
-        // case UPDATE_NEW_POST_TEXT: {
-        //     return {...state, newPostText: action.newText};
-        // }
         case TOGGLE_IS_FETCHING: {
             return {...state, isFetching: action.isFetching};
         }
@@ -51,10 +47,6 @@ const profileReducer = (state = initialState, action) => {
 export const addPost = (newPostText) => ({
     type: ADD_POST, newPostText: newPostText
 });
-// export const updateNewPostText = (newText) => ({
-//     type: UPDATE_NEW_POST_TEXT,
-//     newText: newText,
-// });
 export const toggleIsFetching = (isFetching) => ({
     type: TOGGLE_IS_FETCHING,
     isFetching: isFetching,
@@ -70,11 +62,9 @@ export const setProfileStatusSuccess = (status) => ({
 
 export const setUserProfile = (userId) => {
     return (dispatch) => {
-        // dispatch(toggleIsFetching(true))
         profileAPI.getProfile(userId)
             .then((profile) => {
                 dispatch(setUserProfileSuccess(profile))
-                // dispatch(toggleIsFetching(false))
             });
     }
 }
