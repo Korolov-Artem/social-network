@@ -20,14 +20,6 @@ class UsersContainer extends React.Component {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
-    onUserFollow = (id) => {
-        this.props.followUser(id)
-    };
-
-    onUserUnfollow = (id) => {
-        this.props.unfollowUser(id)
-    };
-
     onPageChange = (page) => {
         this.props.getUsers(page, this.props.pageSize)
     }
@@ -43,8 +35,6 @@ class UsersContainer extends React.Component {
                 <Users
                     {...this.props}
                     onPageChange={this.onPageChange}
-                    onUserUnfollow={this.onUserUnfollow}
-                    onUserFollow={this.onUserFollow}
                 />
             </>
         );

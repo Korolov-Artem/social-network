@@ -1,7 +1,7 @@
 import {authAPI} from "../api/api";
 
-const SET_USER_DATA = "SET-USER-DATA";
-const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
+const SET_USER_DATA = "auth/SET-USER-DATA";
+const TOGGLE_IS_FETCHING = "auth/TOGGLE-IS-FETCHING";
 
 let initialState = {
     id: null,
@@ -37,40 +37,37 @@ export const toggleIsFetching = (isFetching) => ({
     isFetching: isFetching,
 });
 export const setUserData = () => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true))
-        return authAPI.setMe().then((user) => {
-            let {id, email, login} = user.data;
-            if (user.resultCode === 0) {
-                dispatch(setUserDataSuccess(id, email, login, true))
-            }
-            dispatch(toggleIsFetching(false))
-        });
+        let user = await authAPI.setMe()
+        let {id, email, login} = user.data;
+        if (user.resultCode === 0) {
+            dispatch(setUserDataSuccess(id, email, login, true))
+        }
+        dispatch(toggleIsFetching(false))
     }
 }
 export const login = (formValues, setStatus) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true))
-        authAPI.login(formValues.email, formValues.password, formValues.remember)
-            .then((user) => {
-                if (user.resultCode === 0) {
-                    dispatch(setUserData())
-                } else {
-                    setStatus({errors: user.messages || "Some Error"})
-                }
-                dispatch(toggleIsFetching(false))
-            })
+        let user = await authAPI.login(
+            formValues.email, formValues.password, formValues.remember)
+        if (user.resultCode === 0) {
+            dispatch(setUserData())
+        } else {
+            setStatus({errors: user.messages || "Some Error"})
+        }
+        dispatch(toggleIsFetching(false))
     }
 }
 export const logout = () => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true))
-        authAPI.logout().then((user) => {
-            if (user.data.resultCode === 0) {
-                dispatch(setUserDataSuccess(null, null, null, false))
-            }
-            dispatch(toggleIsFetching(false))
-        })
+        let user = await authAPI.logout()
+        if (user.data.resultCode === 0) {
+            dispatch(setUserDataSuccess(null, null, null, false))
+        }
+        dispatch(toggleIsFetching(false))
     }
 }
 

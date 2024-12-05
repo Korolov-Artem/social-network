@@ -1,9 +1,9 @@
 import {profileAPI} from "../api/api";
 
-const ADD_POST = "ADD-POST";
-const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
-const SET_USER_PROFILE = "SET-USER-PROFILE";
-const SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
+const ADD_POST = "profile/ADD-POST";
+const TOGGLE_IS_FETCHING = "profile/TOGGLE-IS-FETCHING";
+const SET_USER_PROFILE = "profile/SET-USER-PROFILE";
+const SET_PROFILE_STATUS = "profile/SET_PROFILE_STATUS";
 
 let initialState = {
     PostsState: [
@@ -61,29 +61,23 @@ export const setProfileStatusSuccess = (status) => ({
 })
 
 export const setUserProfile = (userId) => {
-    return (dispatch) => {
-        profileAPI.getProfile(userId)
-            .then((profile) => {
-                dispatch(setUserProfileSuccess(profile))
-            });
+    return async (dispatch) => {
+        let profile = await profileAPI.getProfile(userId)
+        dispatch(setUserProfileSuccess(profile))
     }
 }
 export const getProfileStatus = (userId) => {
-    return (dispatch) => {
-        profileAPI.getStatus(userId)
-            .then((response) => {
-                dispatch(setProfileStatusSuccess(response.data))
-            })
+    return async (dispatch) => {
+        let response = await profileAPI.getStatus(userId)
+        dispatch(setProfileStatusSuccess(response.data))
     }
 }
 export const setProfileStatus = (status) => {
-    return (dispatch) => {
-        profileAPI.setStatus(status)
-            .then(response => {
-                if (response.resultCode === 0) {
-                    dispatch(setProfileStatusSuccess(status))
-                }
-            })
+    return async (dispatch) => {
+        let response = await profileAPI.setStatus(status)
+        if (response.resultCode === 0) {
+            dispatch(setProfileStatusSuccess(status))
+        }
     }
 }
 

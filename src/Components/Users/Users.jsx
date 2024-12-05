@@ -1,37 +1,20 @@
 import React from "react";
 import User from "./User/User";
 import "./Users.css";
+import UsersPaginator from "./UsersPaginator";
 
 const Users = (props) => {
     let UsersElements = props.state.map((user) => (
         <User
             key={user.id}
-            onUserFollow={props.onUserFollow}
-            onUserUnfollow={props.onUserUnfollow}
+            onUserFollow={props.followUser}
+            onUserUnfollow={props.unfollowUser}
             state={user}
             followingInProgressUserArray={props.followingInProgressUserArray}
         />
     ));
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
-    let currentP = props.currentPage;
-    let currentPLeft;
-    let currentPRight;
-
-    if (currentP <= 5) {
-        currentPLeft = 0;
-        currentPRight = 9;
-    } else {
-        currentPLeft = currentP - 5;
-        currentPRight = currentP + 4;
-    }
-
-    let pagesArray = pages.slice(currentPLeft, currentPRight);
+    let pagesArray = UsersPaginator(props.totalUsersCount, props.pageSize, props.currentPage)
 
     return (
         <div className="Users">
