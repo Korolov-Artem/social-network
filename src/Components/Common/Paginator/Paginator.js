@@ -1,5 +1,5 @@
-const UsersPaginator = (totalUsersCount, pageSize, currentPage) => {
-    let pagesCount = Math.ceil(totalUsersCount / pageSize);
+const Paginator = (totalItemsCount, pageSize, currentPage) => {
+    let pagesCount = Math.ceil(totalItemsCount / pageSize);
 
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
@@ -20,4 +20,4 @@ const UsersPaginator = (totalUsersCount, pageSize, currentPage) => {
     return pages.slice(currentPLeft, currentPRight)
 }
 
-export default UsersPaginator
+export default Paginator

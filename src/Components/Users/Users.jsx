@@ -1,7 +1,7 @@
 import React from "react";
 import User from "./User/User";
 import "./Users.css";
-import UsersPaginator from "./UsersPaginator";
+import Paginator from "../Common/Paginator/Paginator";
 
 const Users = (props) => {
     let UsersElements = props.state.map((user) => (
@@ -14,7 +14,7 @@ const Users = (props) => {
         />
     ));
 
-    let pagesArray = UsersPaginator(props.totalUsersCount, props.pageSize, props.currentPage)
+    let pagesArray = Paginator(props.totalUsersCount, props.pageSize, props.currentPage)
 
     return (
         <div className="Users">

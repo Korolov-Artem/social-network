@@ -1,16 +1,19 @@
-import React from "react";
+import React, {Suspense} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./App.css";
 import Navbar from "./Components/Navbar/Navbar";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import SideBarContainer from "./Components/SideBar/SideBarContainer";
-import UsersContainer from "./Components/Users/UsersContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import LoginForm from "./Components/Forms/LoginForm/LoginForm";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {initializeApp} from "./Redux/appReducer";
 import BetterLoader from "./Components/Common/Loader/BetterLoader";
+import {compose} from "redux";
+import store from "./Redux/reduxStore";
+
+const UsersContainer = React.lazy(() => import("./Components/Users/UsersContainer"));
 
 class App extends React.Component {
     componentDidMount() {
@@ -22,19 +25,21 @@ class App extends React.Component {
             return <BetterLoader/>;
         }
         return (
-            <BrowserRouter>
-                <div className="Container">
-                    <HeaderContainer/>
-                    <Navbar/>
-                    <SideBarContainer/>
-                    <Routes>
-                        <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
-                        <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-                        <Route path="/users/*" element={<UsersContainer/>}/>
-                        <Route path="/login" element={<LoginForm/>}/>
-                    </Routes>
-                </div>
-            </BrowserRouter>
+            <Suspense fallback={<BetterLoader/>}>
+                <BrowserRouter>
+                    <div className="Container">
+                        <HeaderContainer/>
+                        <Navbar/>
+                        <SideBarContainer/>
+                        <Routes>
+                            <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
+                            <Route path="/dialogs/*" element={<DialogsContainer/>}/>
+                            <Route path="/users/*" element={<UsersContainer/>}/>
+                            <Route path="/login" element={<LoginForm/>}/>
+                        </Routes>
+                    </div>
+                </BrowserRouter>
+            </Suspense>
         );
     }
 }
@@ -43,4 +48,14 @@ const mapStateToProps = (state) => ({
     initialized: state.app.initialized,
 })
 
-export default connect(mapStateToProps, {initializeApp})(App);
+let AppContainer = compose(connect(mapStateToProps, {initializeApp})(App))
+
+let MainApp = (props) => {
+    return <React.StrictMode>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </React.StrictMode>
+}
+
+export default MainApp
