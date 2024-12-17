@@ -1,5 +1,5 @@
 import React, {Suspense} from "react";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {HashRouter, Route, Routes} from "react-router-dom";
 import "./App.css";
 import Navbar from "./Components/Navbar/Navbar";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
@@ -26,7 +26,7 @@ class App extends React.Component {
         }
         return (
             <Suspense fallback={<BetterLoader/>}>
-                <BrowserRouter>
+                <HashRouter>
                     <div className="Container">
                         <HeaderContainer/>
                         <Navbar/>
@@ -38,7 +38,7 @@ class App extends React.Component {
                             <Route path="/login" element={<LoginForm/>}/>
                         </Routes>
                     </div>
-                </BrowserRouter>
+                </HashRouter>
             </Suspense>
         );
     }

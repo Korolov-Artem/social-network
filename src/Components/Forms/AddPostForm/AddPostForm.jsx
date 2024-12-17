@@ -13,7 +13,7 @@ const AddPostForm = (props) => {
                     resetForm();
                 }}
             >
-                {(meta) => (
+                {
                     <Form>
                         <div className="Profile__newPost">
                             <CustomField
@@ -30,7 +30,7 @@ const AddPostForm = (props) => {
                             </button>
                         </div>
                     </Form>
-                )}
+                }
             </Formik>
         </div>
     )
