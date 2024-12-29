@@ -31,7 +31,7 @@ export const authAPI = {
     },
     logout() {
         return axiosInstance.delete("auth/login")
-    }
+    },
 }
 
 export const profileAPI = {
@@ -43,5 +43,15 @@ export const profileAPI = {
     },
     setStatus(status) {
         return axiosInstance.put("profile/status/", {status}).then((status) => status.data);
-    }
+    },
+    setPhoto(file) {
+        const formData = new FormData();
+        formData.append("image", file)
+        return axiosInstance.put("profile/photo/", formData, {
+            headers: {"Content-Type": "multipart/form-data"}
+        }).then((photos) => photos.data)
+    },
+    setProfile(profile) {
+        return axiosInstance.put(`profile`, profile)
+    },
 }

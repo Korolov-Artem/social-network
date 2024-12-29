@@ -1,4 +1,4 @@
-.Profile__ava img {
+.Profile__image img {
     margin: 2%;
     margin-left: 2.1%;
     border: 2px solid #0a1417;
@@ -7,14 +7,14 @@
     width: 150px;
     height: 150px;
     border-radius: 10px;
-  }
-  
-  .Profile__description {
+}
+
+.Profile__description {
     margin-left: 17.5%;
     margin-top: -1%;
     max-width: 80%;
     text-align: justify;
-  }
+}
 
 .Profile__wallpaper {
     display: flex;
@@ -43,6 +43,6 @@
     margin-top: -0.5%;
 }
 
-.Profile__interactButtons button{
+.Profile__interactButtons button {
     height: 40px;
 }

@@ -4,6 +4,7 @@ const ADD_POST = "profile/ADD-POST";
 const TOGGLE_IS_FETCHING = "profile/TOGGLE-IS-FETCHING";
 const SET_USER_PROFILE = "profile/SET-USER-PROFILE";
 const SET_PROFILE_STATUS = "profile/SET_PROFILE_STATUS";
+const SET_PROFILE_PHOTO = "profile/SET_PROFILE_PHOTO";
 
 let initialState = {
     PostsState: [
@@ -39,6 +40,9 @@ const profileReducer = (state = initialState, action) => {
         case SET_PROFILE_STATUS: {
             return {...state, status: action.status};
         }
+        case SET_PROFILE_PHOTO: {
+            return {...state, profile: {...state.profile, photos: action.photos}};
+        }
         default:
             return state;
     }
@@ -59,6 +63,10 @@ export const setProfileStatusSuccess = (status) => ({
     type: SET_PROFILE_STATUS,
     status: status,
 })
+export const setProfilePhotoSuccess = (photos) => ({
+    type: SET_PROFILE_PHOTO,
+    photos: photos,
+})
 
 export const setUserProfile = (userId) => {
     return async (dispatch) => {
@@ -78,6 +86,50 @@ export const setProfileStatus = (status) => {
         if (response.resultCode === 0) {
             dispatch(setProfileStatusSuccess(status))
         }
+    }
+}
+export const setProfilePhoto = (file) => {
+    return async (dispatch) => {
+        toggleIsFetching(true)
+        let response = await profileAPI.setPhoto(file)
+        if (response.resultCode === 0) {
+            dispatch(setProfilePhotoSuccess(response.data.photos))
+            toggleIsFetching(false)
+        }
+        if (response.resultCode !== 0) {
+            toggleIsFetching(false)
+        }
+    }
+}
+// export const updateProfileDescription = (profile, setStatus) => {
+//     return async (dispatch, getState) => {
+//         const userId = getState().auth.id
+//         toggleIsFetching(true)
+//         let response = await profileAPI.setProfile(profile)
+//         if (response.data.resultCode === 0) {
+//             dispatch(setUserProfile(userId))
+//         } else {
+//             setStatus({errors: response.data.messages || "Some Error"})
+//
+//         }
+//         toggleIsFetching(false)
+//     }
+// }
+
+export const updateProfileDescription = (profile, setStatus) => {
+    return async (dispatch, getState) => {
+        const userId = getState().auth.id
+        dispatch(toggleIsFetching(true))
+
+        const response = await profileAPI.setProfile(profile)
+
+        if (response.data.resultCode === 0) {
+            dispatch(setUserProfile(userId))
+        } else {
+            setStatus({errors: response.data.messages || "Some error occurred while submitting form"})
+        }
+        dispatch(toggleIsFetching(false))
+        return response;
     }
 }
 

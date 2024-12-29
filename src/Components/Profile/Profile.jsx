@@ -11,6 +11,9 @@ const Profile = (props) => {
                 profile={props.state.profile}
                 setProfileStatus={props.setProfileStatus}
                 status={props.state.status}
+                isOwner={props.isOwner}
+                setProfilePhoto={props.setProfilePhoto}
+                updateProfileDescription={props.updateProfileDescription}
             />
             <NewPost
                 updateNewPostText={props.updateNewPostText}
