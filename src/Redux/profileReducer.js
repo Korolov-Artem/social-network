@@ -101,24 +101,10 @@ export const setProfilePhoto = (file) => {
         }
     }
 }
-// export const updateProfileDescription = (profile, setStatus) => {
-//     return async (dispatch, getState) => {
-//         const userId = getState().auth.id
-//         toggleIsFetching(true)
-//         let response = await profileAPI.setProfile(profile)
-//         if (response.data.resultCode === 0) {
-//             dispatch(setUserProfile(userId))
-//         } else {
-//             setStatus({errors: response.data.messages || "Some Error"})
-//
-//         }
-//         toggleIsFetching(false)
-//     }
-// }
-
 export const updateProfileDescription = (profile, setStatus) => {
     return async (dispatch, getState) => {
         const userId = getState().auth.id
+
         dispatch(toggleIsFetching(true))
 
         const response = await profileAPI.setProfile(profile)

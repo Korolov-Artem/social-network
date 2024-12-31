@@ -1,6 +1,6 @@
 import {Field, Form, Formik} from "formik";
 import {CustomField} from "../../Forms/FormsBlueprints/FormsBlueprints";
-import {composeValidators, maxLength} from "../../Forms/Validation";
+import {composeValidators, maxLength, validGithubLink} from "../../Forms/Validation";
 
 const ProfileDataForm = (props) => {
     if (props.profile) {
@@ -15,7 +15,7 @@ const ProfileDataForm = (props) => {
                         lookingForAJobDescription: props.profile.lookingForAJobDescription,
                         contacts: props.profile.contacts
                     }}
-                    onSubmit={async (values, {setStatus, resetForm, setSubmitting}) => {
+                    onSubmit={async (values, {setStatus, resetForm, setSubmitting,}) => {
                         let formValues = {
                             fullName: values.fullName,
                             aboutMe: values.aboutMe || null,
@@ -24,7 +24,7 @@ const ProfileDataForm = (props) => {
                             contacts: values.contacts
                         }
                         try {
-                            const response = await props.updateProfileDescription(formValues, setStatus);
+                            const response = await props.updateProfileDescription(formValues, setStatus,);
                             if (response?.data?.resultCode === 0) {
                                 resetForm({values});
                                 props.setEditMode(false);
@@ -86,7 +86,7 @@ const ProfileDataForm = (props) => {
                                     type={"text"}
                                     placeholder={"Your link, sir"}
                                     component={"input"}
-                                    validate={composeValidators(maxLength(100))}
+                                    validate={composeValidators(maxLength(100), validGithubLink)}
                                 />
                             </div>
                             <div>
