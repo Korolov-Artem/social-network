@@ -39,8 +39,9 @@ let initialState = {
     },
   ],
 };
+type InitialStateType = typeof initialState
 
-const sideBarReducer = (state = initialState, action) => {
+const sideBarReducer = (state = initialState, action):InitialStateType => {
   return state;
 };
 

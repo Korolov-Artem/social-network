@@ -24,7 +24,8 @@ class ProfileContainer extends React.Component {
 
     refreshProfile() {
         if (!this.userId && !this.props.isAuth) {
-            window.location.href = "/login";
+            // window.location.href = "/login";
+            this.setState({redirectToLogin: true})
             return;
         }
         if (!this.userId) {
@@ -50,7 +51,10 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-        if (!this.userId && !this.props.isAuth) {
+        // if (!this.userId && !this.props.isAuth) {
+        //     return <Navigate to="/login"/>;
+        // }
+        if (this.state?.redirectToLogin) {
             return <Navigate to="/login"/>;
         }
 

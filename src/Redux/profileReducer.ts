@@ -1,4 +1,6 @@
 import {profileAPI} from "../api/api";
+import { ContactsType, PhotosType, PostsType } from "./Types/Types";
+
 
 const ADD_POST = "profile/ADD-POST";
 const TOGGLE_IS_FETCHING = "profile/TOGGLE-IS-FETCHING";
@@ -6,18 +8,29 @@ const SET_USER_PROFILE = "profile/SET-USER-PROFILE";
 const SET_PROFILE_STATUS = "profile/SET_PROFILE_STATUS";
 const SET_PROFILE_PHOTO = "profile/SET_PROFILE_PHOTO";
 
+
+type ProfileType = {
+    id: number
+    lookingForAJob: boolean
+    lookingForAJobDescriptiopn: string
+    fullName: string
+    contact: ContactsType
+    photos: PhotosType
+}
 let initialState = {
     PostsState: [
         {id: 1, message: "Hello World!", likesCount: 11},
         {id: 2, message: "Hi Pal.", likesCount: 146},
-    ],
-    newPostText: "",
+    ] as Array<PostsType>,
+    newPostText: "" as string,
     isFetching: false,
-    profile: null,
-    status: "",
+    profile: null as ProfileType | null,
+    status: "" as string,
 };
+export type InitialStateType = typeof initialState 
 
-const profileReducer = (state = initialState, action) => {
+
+const profileReducer = (state = initialState, action):InitialStateType => {
     switch (action.type) {
         case ADD_POST: {
             let newPost = {
@@ -41,46 +54,72 @@ const profileReducer = (state = initialState, action) => {
             return {...state, status: action.status};
         }
         case SET_PROFILE_PHOTO: {
-            return {...state, profile: {...state.profile, photos: action.photos}};
+            return {...state, profile: {...state.profile, photos: action.photos} as ProfileType};
         }
         default:
             return state;
     }
 };
 
-export const addPost = (newPostText) => ({
+type AddPostActionType = {
+    type: typeof ADD_POST
+    newPostText: string
+}
+export const addPost = (newPostText):AddPostActionType => ({
     type: ADD_POST, newPostText: newPostText
 });
-export const toggleIsFetching = (isFetching) => ({
+
+type ToggleIsFetchingActionType = {
+    type: typeof TOGGLE_IS_FETCHING
+    isFetching: boolean
+} 
+export const toggleIsFetching = (isFetching):ToggleIsFetchingActionType => ({
     type: TOGGLE_IS_FETCHING,
     isFetching: isFetching,
 });
-export const setUserProfileSuccess = (profile) => ({
+
+type SetUserProfileSuccessActionType = {
+    type: typeof SET_USER_PROFILE
+    profile: ProfileType
+}
+export const setUserProfileSuccess = (profile):SetUserProfileSuccessActionType => ({
     type: SET_USER_PROFILE,
     profile: profile,
 });
-export const setProfileStatusSuccess = (status) => ({
+
+type SetProfileStatusSuccess = {
+    type: typeof SET_PROFILE_STATUS
+    status: string
+}
+export const setProfileStatusSuccess = (status):SetProfileStatusSuccess => ({
     type: SET_PROFILE_STATUS,
     status: status,
 })
-export const setProfilePhotoSuccess = (photos) => ({
+
+type SetProfilePhotoSuccess = {
+    type: typeof SET_PROFILE_PHOTO
+    photos: PhotosType
+}
+export const setProfilePhotoSuccess = (photos):SetProfilePhotoSuccess => ({
     type: SET_PROFILE_PHOTO,
     photos: photos,
 })
 
-export const setUserProfile = (userId) => {
+
+
+export const setUserProfile = (userId:number) => {
     return async (dispatch) => {
         let profile = await profileAPI.getProfile(userId)
         dispatch(setUserProfileSuccess(profile))
     }
 }
-export const getProfileStatus = (userId) => {
+export const getProfileStatus = (userId:number) => {
     return async (dispatch) => {
         let response = await profileAPI.getStatus(userId)
         dispatch(setProfileStatusSuccess(response.data))
     }
 }
-export const setProfileStatus = (status) => {
+export const setProfileStatus = (status:string) => {
     return async (dispatch) => {
         let response = await profileAPI.setStatus(status)
         if (response.resultCode === 0) {
@@ -101,7 +140,7 @@ export const setProfilePhoto = (file) => {
         }
     }
 }
-export const updateProfileDescription = (profile, setStatus) => {
+export const updateProfileDescription = (profile:ProfileType, setStatus) => {
     return async (dispatch, getState) => {
         const userId = getState().auth.id
 
